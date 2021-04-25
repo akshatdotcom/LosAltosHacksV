@@ -7,7 +7,7 @@ if __name__ == '__main__':
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    data = "Pulled data: ", pullData("SELECT * FROM events;")
+    data = pullData("SELECT * FROM events2;") + '---' + pullData('SELECT * FROM resources')
     return render_template('index.html', value=data)
 
 # pushData("INSERT INTO events (name, description, class) VALUES ('writing', 'timed essay', 'English');")
