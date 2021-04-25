@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'globals.dart';
 
 class CalendarPage extends StatefulWidget {
   @override
@@ -18,21 +21,27 @@ class _CalendarPageState extends State<CalendarPage> {
 
   List<Widget> _getEventsForDay(DateTime day) {
     List<Widget> result = [];
-    for (var i = 0; i < 4; i++) {
-      result.add(
-        Container(
-          width: 400,
-          margin: EdgeInsets.all(5),
-          padding: EdgeInsets.all(15),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.green,
+    for (var event in events) {
+      var times = day.toString().split(' ')[0].split('-');
+      if(times[2]+'-'+times[1]+'-'+times[0] == event[2]) {
+        result.add(
+          Container(
+            width: 400,
+            margin: EdgeInsets.all(5),
+            padding: EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.green,
+            ),
+            child: Column(
+              children: [
+                Text(event[0], style: TextStyle(fontWeight: FontWeight.bold,),),
+                Text(event[1]),
+              ],
+            )
           ),
-          child: Text(
-            day.toString(),
-          ),
-        ),
-      );
+        );
+      }
     }
     return result;
   }
@@ -68,6 +77,11 @@ class _CalendarPageState extends State<CalendarPage> {
                     _daysEvents = _getEventsForDay(_selectedDay);
                   });
                 },
+              ),
+            ),
+            Text(_focusedDay.toString().split(' ')[0],
+              style: TextStyle(
+                fontSize: 20,
               ),
             ),
             Column(

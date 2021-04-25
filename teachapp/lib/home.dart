@@ -12,15 +12,26 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List<Widget> _bodys = [ResourcePage(), CalendarPage(), ChatPage()];
   int _bodysIndex = 1;
+  bool _buttonVisible = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: Visibility(
+        child: FloatingActionButton(
+          child: Icon(Icons.add, color: Colors.black,),
+          onPressed: () {
+            print('create event');
+          },
+          backgroundColor: Colors.white,
+        ),
+        visible: _buttonVisible,
+      ),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
         title: Text(
-          'TeachApp',
+          'TeacherTalk',
           style: TextStyle(
             color: Colors.black,
             fontSize: 32,
@@ -37,6 +48,7 @@ class _HomeState extends State<Home> {
         onTap: (index) {
           setState(() {
             _bodysIndex = index;
+            _buttonVisible = index == 1 ? true : false;
           });
         },
         currentIndex: _bodysIndex,
